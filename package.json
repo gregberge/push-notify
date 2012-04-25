@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "deferred" : "git://github.com/medikoo/deferred.git",
-    "node-queue-worker" : "git://github.com/neoziro/node-queue-worker.git",
     "apn" : "http://github.com/argon/node-apn.git"
   },
   "licence": "MIT",

@@ -1,17 +1,8 @@
-if(typeof process.env.NOTIFY_ENVIRONMENT === "undefined")
-{
-   process.env.NOTIFY_ENVIRONMENT = "dev";
-}
-
-var Worker = require("node-queue-worker").Worker,
-    RedisDriver = require("node-queue-worker").RedisDriver,
-    Notify = require("./index").Notify,
-    apnNotify, driver, worker;
+var Notify = require("./index").Notify,
+    apnNotify;
 
 apnNotify = new Notify(Notify.PROTOCOL_APN);
-
-driver = new RedisDriver(6379, 'arnold.lemonde-interactif.fr', 3);
-
-worker = new Worker("notify:apn", apnNotify.notify.bind(apnNotify), driver, {waitTime: 30});
-
-worker.start();
+apnNotify.notify({token:"b5bf61a839855b92a394dc883433df64447a7fe7ed0d8ee121f97c9973628f32", alert:"Hello World !"})
+.then(function(){
+   console.log("envoi ok");
+});
