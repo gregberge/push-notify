@@ -15,14 +15,15 @@
   },
   "bugs": {
     "email": "berge.greg@gmail.com",
-    "url": "https://github.com/neoziro/node-queue-worker/issues"
+    "url": "https://github.com/neoziro/push-notify/issues"
   },
   "engines": {
     "node": ">=0.6.5"
   },
   "dependencies": {
     "deferred" : "git://github.com/medikoo/deferred.git",
-    "redis" : "git://github.com/mranney/node_redis.git"
+    "node-queue-worker" : "git://github.com/medikoo/node-queue-worker.git",
+    "apn" : "http://github.com/argon/node-apn.git"
   },
   "licence": "MIT",
   "optionalDependencies": {}
