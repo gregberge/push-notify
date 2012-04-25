@@ -8,7 +8,7 @@
     "apn"
   ],
   "author": "Bergé Greg <berge.greg@gmail.com> (http://www.neoziro.com/)",
-  "main": "lib",
+  "main": "./",
   "repository": {
     "type": "git",
     "url": "git://github.com/neoziro/push-notify.git"

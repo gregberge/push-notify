@@ -1,6 +1,11 @@
+if(typeof process.env.NOTIFY_ENVIRONMENT === "undefined")
+{
+   process.env.NOTIFY_ENVIRONMENT = "dev";
+}
+
 var Worker = require("node-queue-worker").Worker,
     RedisDriver = require("node-queue-worker").RedisDriver,
-    Notify = require("./lib/notify").Notify,
+    Notify = require("./index").Notify,
     apnNotify, driver, worker;
 
 apnNotify = new Notify(Notify.PROTOCOL_APN);
