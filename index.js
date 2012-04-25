@@ -4,3 +4,4 @@ if(typeof process.env.NOTIFY_ENVIRONMENT === "undefined")
 }
 
 exports.Notify = require("./lib/notify").Notify;
+exports.config = require("./lib/config");

@@ -21,8 +21,8 @@
     "node": ">=0.6.5"
   },
   "dependencies": {
-    "deferred" : "git://github.com/medikoo/deferred.git",
-    "apn" : "http://github.com/argon/node-apn.git"
+    "apn" : "1.1.6",
+    "deferred" : "git://github.com/medikoo/deferred.git"
   },
   "licence": "MIT",
   "optionalDependencies": {}
