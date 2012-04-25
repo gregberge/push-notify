@@ -1,0 +1,29 @@
+{
+  "name": "push-notify",
+  "version": "0.1.0",
+  "description": "Notification system, with node-queue-worker.",
+  "keywords": [
+    "notification",
+    "apns",
+    "apn"
+  ],
+  "author": "Bergé Greg <berge.greg@gmail.com> (http://www.neoziro.com/)",
+  "main": "lib",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/neoziro/push-notify.git"
+  },
+  "bugs": {
+    "email": "berge.greg@gmail.com",
+    "url": "https://github.com/neoziro/node-queue-worker/issues"
+  },
+  "engines": {
+    "node": ">=0.6.5"
+  },
+  "dependencies": {
+    "deferred" : "git://github.com/medikoo/deferred.git",
+    "redis" : "git://github.com/mranney/node_redis.git"
+  },
+  "licence": "MIT",
+  "optionalDependencies": {}
+}
