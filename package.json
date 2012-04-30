@@ -21,7 +21,6 @@
     "node": ">=0.6.5"
   },
   "dependencies": {
-    "jquery-deferred" : ">=0.2.0",
     "apn" : ">=1.1.6"
   },
   "licence": "MIT",
