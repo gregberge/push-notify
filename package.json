@@ -21,7 +21,7 @@
     "node": ">=0.6.5"
   },
   "dependencies": {
-    "apn" : ">=1.1.6"
+    "apn" : "git://github.com/neoziro/node-apn.git"
   },
   "licence": "MIT",
   "optionalDependencies": {}
