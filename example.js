@@ -2,12 +2,22 @@ var Notify = require("./index").Notify,
     apnNotify;
 
 var config = {
-      "dev" : {
+      "prod" : {
          "sender" : {
             "apn" : {
-               "key" : "./config/dev/apn/key.pem",
-               "cert" : "./config/dev/apn/cert.pem",
+               "key" : "./config/prod/apn/key.pem",
+               "cert" : "./config/prod/apn/cert.pem",
                "gateway" : "gateway.push.apple.com",
+               "port" : 2195
+            }
+         }
+      },
+      "sandbox" : {
+         "sender" : {
+            "apn" : {
+               "key" : "./config/sandbox/apn/key.pem",
+               "cert" : "./config/sandbox/apn/cert.pem",
+               "gateway" : "gateway.sandbox.push.apple.com",
                "port" : 2195
             }
          }
