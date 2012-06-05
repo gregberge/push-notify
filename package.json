@@ -1,7 +1,7 @@
 {
   "name": "push-notify",
   "version": "0.1.0",
-  "description": "Notification system, with node-queue-worker.",
+  "description": "Notification system.",
   "keywords": [
     "notification",
     "apns",

@@ -26,6 +26,10 @@ var config = {
 
 
 apnNotify = new Notify(Notify.PROTOCOL_APN, config.prod);
+apnNotify.setErrorCallback(function(data)
+{
+   console.log(data);
+});
 
 apnNotify.notify({token:"b5bf61a839855b92a394dc883433df64447a7fe7ed0d8ee121f97c9973628f32", alert:"Hello World !", sound: "dong.caf"}, function(){
    console.log("Sending ok");
@@ -39,6 +43,7 @@ apnNotify.notify({token:"c5bf61a839855b92a394dc883433df64447a7fe7ed0d8ee121f97c9
 
 //Ismael
 
+/*
 setTimeout(function(){
 apnNotify.notify({token:"11e8aa0d9dff284080fb084587d65584fe1d409451345d492da705d201644fa8", alert:"Au lit !", sound: "dong.caf"}, function(){
    console.log("Sending ok");
@@ -50,7 +55,7 @@ apnNotify.notify({token:"b5bf61a839855b92a394dc883433df64447a7fe7ed0d8ee121f97c9
    console.log("Sending ok");
 });
 }, 900);
-
+*/
 
 //OG
 /*
