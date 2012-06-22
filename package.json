@@ -5,7 +5,8 @@
   "keywords": [
     "notification",
     "apns",
-    "apn"
+    "apn",
+    "c2dm"
   ],
   "author": "Bergé Greg <berge.greg@gmail.com> (http://www.neoziro.com/)",
   "main": "./",
@@ -21,7 +22,8 @@
     "node": ">=0.6.5"
   },
   "dependencies": {
-    "apns" : "*"
+    "apns" : "*",
+    "c2dm" : "git://github.com/desbouis/node-c2dm.git"
   },
   "licence": "MIT",
   "optionalDependencies": {}
