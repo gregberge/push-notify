@@ -13,19 +13,15 @@ describe('Protocol apn', function () {
   this.timeout(10000);
 
   beforeEach(function () {
-    this.errorCallback = sinon.spy();
-
     this.apn = new notify.apn.Sender({
       key: './test/config/apn/key.pem',
-      cert: './test/config/apn/cert.pem',
-      errorCallback: this.errorCallback
+      cert: './test/config/apn/cert.pem'
     });
   });
 
   it('should send notification', function (done) {
     var errorSpy = sinon.spy();
 
-    this.apn.on('error', errorSpy);
     this.apn.on('transmissionError', errorSpy);
 
     this.apn.on('transmitted', function () {
@@ -35,8 +31,7 @@ describe('Protocol apn', function () {
 
     this.apn.send({
       token: 'f9bd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617',
-      alert: 'Hello World !',
-      sound: 'dong.caf'
+      alert: 'Simple notification'
     });
   });
 
@@ -49,25 +44,20 @@ describe('Protocol apn', function () {
       }
     });
 
-    this.apn.on('error', errorSpy);
     this.apn.on('transmissionError', errorSpy);
     this.apn.on('transmitted', transmittedSpy);
 
     this.apn.send({
-      token: ['a37bf7c43329cccc82f9eb48e50ad3bb72d296a0377d1697cf91a207f3c37a5a', 'f9bd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617'],
-      alert: 'Hello world!',
+      token: ['50520d714692ca59248a35e3abe6f415cc3c3bebb3008079efd92edab7f7a1f7', 'f9bd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617'],
+      alert: 'Multi (x2)',
       sound: 'dong.caf'
     });
   });
 
-  it('should call errorCallback if a device is invalid', function (done) {
-    var self = this;
-
-    this.apn.on('transmissionError', function () {
-      self.errorCallback.should.be.calledWith({
-        errorCode: 8,
-        token: 'f9cd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617'
-      });
+  it('should emit a "transmissionError" event if a device is invalid', function (done) {
+    this.apn.on('transmissionError', function (errorCode, notification, device) {
+      errorCode.should.equal(8);
+      device.token.toString('hex').should.equal('f9cd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617');
       done();
     });
 
@@ -87,13 +77,12 @@ describe('Protocol apn', function () {
 
     this.apn.send({
       token: 'xxx',
-      alert: 'Hello World!'
+      alert: 'Bad token'
     });
 
     this.apn.send({
       token: 'f9bd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617',
-      alert: 'Hello World!',
-      sound: 'dong.caf'
+      alert: 'Rewrited notification'
     });
   });
 });
