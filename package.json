@@ -10,6 +10,7 @@
     "mpns"
   ],
   "author": "Bergé Greg <berge.greg@gmail.com>",
+  "licence": "MIT",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -29,7 +30,6 @@
     "c2dm": "~1.2.0",
     "q": "~0.9.4"
   },
-  "licence": "MIT",
   "devDependencies": {
     "sinon-chai": "~2.4.0",
     "chai": "~1.6.0",
