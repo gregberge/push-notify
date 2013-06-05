@@ -1,1 +1,1 @@
-exports.Notify = require("./lib/notify").Notify;
+module.exports = require("./lib/notify");
