@@ -1,7 +1,2 @@
-.project
-/node_modules
-/config
-
-#Komodo
-*.komodoproject
-.komodotools
+# node
+node_modules/
