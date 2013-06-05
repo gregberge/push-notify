@@ -1,4 +1,4 @@
 # node
 node_modules/
-# certs
-*.pem
+# config
+test/config/

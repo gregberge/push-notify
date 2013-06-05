@@ -3,20 +3,16 @@
 var chai = require('chai'),
     sinon = require('sinon'),
     sinonChai = require('sinon-chai'),
-    notify = require('../index');
+    notify = require('../index'),
+    config = require('./config/apn.json');
 
 chai.use(sinonChai);
 chai.should();
 
 describe('Protocol apn', function () {
 
-  this.timeout(10000);
-
   beforeEach(function () {
-    this.apn = new notify.apn.Sender({
-      key: './test/config/apn/key.pem',
-      cert: './test/config/apn/cert.pem'
-    });
+    this.apn = new notify.apn.Sender(config.apn);
   });
 
   it('should send notification', function (done) {
@@ -30,7 +26,7 @@ describe('Protocol apn', function () {
     });
 
     this.apn.send({
-      token: 'f9bd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617',
+      token: config.validTokens[0],
       alert: 'Simple notification'
     });
   });
@@ -48,7 +44,7 @@ describe('Protocol apn', function () {
     this.apn.on('transmitted', transmittedSpy);
 
     this.apn.send({
-      token: ['50520d714692ca59248a35e3abe6f415cc3c3bebb3008079efd92edab7f7a1f7', 'f9bd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617'],
+      token: config.validTokens,
       alert: 'Multi (x2)',
       sound: 'dong.caf'
     });
@@ -57,12 +53,12 @@ describe('Protocol apn', function () {
   it('should emit a "transmissionError" event if a device is invalid', function (done) {
     this.apn.on('transmissionError', function (errorCode, notification, device) {
       errorCode.should.equal(8);
-      device.token.toString('hex').should.equal('f9cd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617');
+      device.token.toString('hex').should.equal(config.invalidTokens[0]);
       done();
     });
 
     this.apn.send({
-      token: 'f9cd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617',
+      token: config.invalidTokens[0],
       alert: 'Bad token'
     });
   });
@@ -76,12 +72,12 @@ describe('Protocol apn', function () {
     this.apn.on('transmitted', transmittedSpy);
 
     this.apn.send({
-      token: 'xxx',
+      token: config.invalidTokens[0],
       alert: 'Bad token'
     });
 
     this.apn.send({
-      token: 'f9bd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617',
+      token: config.validTokens[0],
       alert: 'Rewrited notification'
     });
   });
