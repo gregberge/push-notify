@@ -1,7 +1,7 @@
 {
   "name": "push-notify",
-  "version": "0.1.0",
-  "description": "Notification system.",
+  "version": "0.2.0",
+  "description": "Abstract library to push notification.",
   "keywords": [
     "notification",
     "apns",
@@ -9,8 +9,8 @@
     "c2dm",
     "mpns"
   ],
-  "author": "Bergé Greg <berge.greg@gmail.com> (http://www.neoziro.com/)",
-  "main": "./",
+  "author": "Bergé Greg <berge.greg@gmail.com>",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/neoziro/push-notify.git"
@@ -27,6 +27,5 @@
     "c2dm" : "git://github.com/desbouis/node-c2dm.git",
     "mpns" : "git://github.com/lemonde/node-mpns.git"
   },
-  "licence": "MIT",
-  "optionalDependencies": {}
+  "licence": "MIT"
 }
