@@ -10,7 +10,6 @@ chai.use(sinonChai);
 chai.should();
 
 describe('Protocol c2dm', function () {
-  this.timeout(5000);
 
   beforeEach(function () {
     this.c2dm = new notify.c2dm.Sender(config.c2dm);

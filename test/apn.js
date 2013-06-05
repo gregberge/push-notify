@@ -15,7 +15,7 @@ describe('Protocol apn', function () {
     this.apn = new notify.apn.Sender(config.apn);
   });
 
-  it('should send notification', function (done) {
+  it('should send one notification', function (done) {
     var errorSpy = sinon.spy();
 
     this.apn.on('transmissionError', errorSpy);
