@@ -60,25 +60,39 @@ describe('Protocol apn', function () {
     });
   });
 
-  it('should call errorCallback and send other notifications', function (done) {
-    var self = this,
-        transmittedSpy = sinon.spy(function () {
-          if (transmittedSpy.callCount === 3) {
-            self.errorCallback.should.be.called;
-            done();
-          }
-        });
+  it('should call errorCallback if a device is invalid', function (done) {
+    var self = this;
+
+    this.apn.on('transmissionError', function () {
+      self.errorCallback.should.be.calledWith({
+        errorCode: 8,
+        token: 'f9cd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617'
+      });
+      done();
+    });
+
+    this.apn.send({
+      token: 'f9cd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617',
+      alert: 'Bad token'
+    });
+  });
+
+  it('should send notifications even if an error occurs', function (done) {
+    var transmittedSpy = sinon.spy(function () {
+      if (transmittedSpy.callCount === 3)
+        done();
+    });
 
     this.apn.on('transmitted', transmittedSpy);
 
     this.apn.send({
       token: 'xxx',
-      alert: 'Hello World !'
+      alert: 'Hello World!'
     });
 
     this.apn.send({
       token: 'f9bd575ce7109f79caaf6eb2648a84e2bad28b3bb7c9f7208fec5b790c419617',
-      alert: 'Hello World !',
+      alert: 'Hello World!',
       sound: 'dong.caf'
     });
   });
