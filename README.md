@@ -1,6 +1,6 @@
 # push-notify
 
-Easyly send notifications over several protocols.
+Easily send notifications over several protocols.
 
 ## Install
 
@@ -88,10 +88,11 @@ mpns.send({
   text2: 'xxx', // Text of the toast (normal)
   param: 'xxx' // Optional uri parameters
 }
+```
 
 ## Broadcast notifications
 
-You can easyly broadcast a notification, each protocols accept a simple string or an array of string in their own device id (`token`, `registration_id`, `pushUri`).
+You can easily broadcast a notification, each protocols accept a simple string or an array of string in their own device id (`token`, `registration_id`, `pushUri`).
 
 ## Events
 
