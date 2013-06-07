@@ -54,6 +54,41 @@ mpns.send({
 });
 ```
 
+## Data format
+
+### apn
+
+```
+{
+  token: 'xxx', // Device token
+  expiry: 1370612529, // Timestamp for date expiration
+  badge: 3, // Badge count
+  sound: 'ping.aiff', // Sound
+  alert: 'Hello world!', // Text alert
+  payload: {} // Custom payload
+}
+```
+
+### c2dm
+
+```
+{
+  registration_id: 'xxx', // Device registration id
+  collapse_key: 'xxx', // Collapse key
+  'data.key1': 'value1' // Custom data fields
+}
+```
+
+### mpns
+
+```
+{
+  pushUri: 'xxx', // Device push uri
+  text1: 'xxx', // Text of the toast (bold)
+  text2: 'xxx', // Text of the toast (normal)
+  param: 'xxx' // Optional uri parameters
+}
+
 ## Broadcast notifications
 
 You can easyly broadcast a notification, each protocols accept a simple string or an array of string in their own device id (`token`, `registration_id`, `pushUri`).
