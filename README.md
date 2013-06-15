@@ -123,3 +123,7 @@ Each events has custom signature for each protocols :
 * apn: [node-apn](https://github.com/argon/node-apn)
 * c2dm: [node-c2dm](https://github.com/SpeCT/node-c2dm)
 * mpns: [node-mpns](https://github.com/jeffwilcox/mpns)
+
+## License
+
+MIT
