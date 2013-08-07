@@ -72,7 +72,7 @@ gcm.send({
       key2: 'message2'
   }
 });
-
+```
 
 ## Data format
 
