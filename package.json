@@ -1,6 +1,6 @@
 {
   "name": "push-notify",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Easily send notifications over multiple protocols.",
   "keywords": [
     "notification",

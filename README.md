@@ -155,8 +155,8 @@ Each events has custom signature for each protocols :
 
 ### gcm
 
-* `transmitted` : `function (messageId, payload) {}`
-* `transmissionError` : `function (error, payload) {}`
+* `transmitted` : `function (result) {}`
+* `transmissionError` : `function (error, result) {}`
 
 ## Modules
 
