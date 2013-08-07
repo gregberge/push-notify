@@ -54,6 +54,16 @@ mpns.send({
 });
 ```
 
+### gcm
+
+```javascript
+
+```
+{
+  
+}
+```
+
 ## Data format
 
 ### apn
@@ -90,6 +100,14 @@ mpns.send({
 }
 ```
 
+### gcm
+
+```
+{
+  
+}
+```
+
 ## Broadcast notifications
 
 You can easily broadcast a notification, each protocols accept a simple string or an array of string in their own device id (`token`, `registration_id`, `pushUri`).
@@ -123,6 +141,7 @@ Each events has custom signature for each protocols :
 * apn: [node-apn](https://github.com/argon/node-apn)
 * c2dm: [node-c2dm](https://github.com/SpeCT/node-c2dm)
 * mpns: [node-mpns](https://github.com/jeffwilcox/mpns)
+* gcm: [node-gcm](https://github.com/ToothlessGear/node-gcm)
 
 ## License
 
