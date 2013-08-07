@@ -57,12 +57,22 @@ mpns.send({
 ### gcm
 
 ```javascript
+var gcm = new notify.gcm.Sender({
+  key: 'insert Google Server API Key here',
+  retries: 1 
+});
 
-```
-{
-  
-}
-```
+gcm.send({
+  registration_id: 'my_device_registration_id',
+  collapseKey: 'my_collapse_key',
+  delayWhileIdle: true,
+  timeToLive: 3,
+  data: {
+      key1: 'message1',
+      key2: 'message2'
+  }
+});
+
 
 ## Data format
 
@@ -104,7 +114,14 @@ mpns.send({
 
 ```
 {
-  
+  registration_id: 'xxx', // Device registration id
+  collapseKey: 'xxx', // Collapse key
+  delayWhileIdle: true, // If included, indicates that the message should not be sent immediately if the device is idle. The server will wait for the device to become active, and then only the last message for each collapse_key value will be sent. Optional. The default value is false, and must be a JSON boolean.
+  timeToLive: 3, // How long (in seconds) the message should be kept on GCM storage if the device is offline. Optional (default time-to-live is 4 weeks, and must be set as a JSON number).
+  data: {
+      key1: 'message1',
+      key2: 'message2'
+  }
 }
 ```
 
@@ -135,6 +152,11 @@ Each events has custom signature for each protocols :
 
 * `transmitted` : `function (result, pushUri) {}`
 * `transmissionError` : `function (error, pushUri) {}`
+
+### gcm
+
+* `transmitted` : `function (messageId, payload) {}`
+* `transmissionError` : `function (error, payload) {}`
 
 ## Modules
 
