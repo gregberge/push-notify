@@ -4,10 +4,10 @@ var chai = require('chai'),
     sinon = require('sinon'),
     sinonChai = require('sinon-chai'),
     notify = require('../index'),
-    config = require('./config/gcm.json');
+    config = require('./config/gcm.json'),
+    expect = chai.expect;
 
 chai.use(sinonChai);
-chai.should();
 
 describe('Protocol gcm', function () {
 
@@ -21,11 +21,11 @@ describe('Protocol gcm', function () {
     });
 
     this.gcm.send({
-      registration_id: config.validRegistrationIds[0],
+      registrationId: config.validRegistrationIds[0],
       collapseKey: 'Test x',
       delayWhileIdle: false,
       data: {
-        'title': 'my tilte',
+        'title': 'my title',
         'message': 'This is my message text'
       }
     });
@@ -33,15 +33,15 @@ describe('Protocol gcm', function () {
   });
 
   it('should trigger a "transmissionError" event', function (done) {
-    
-    this.gcm.on('transmissionError', function (error, data) {
-      error.should.equal('InvalidRegistration');
-      data.registration_id.should.equal(config.invalidRegistrationIds[0]);
+
+    this.gcm.on('transmissionError', function (error, registrationId) {
+      expect(error).to.equal('InvalidRegistration');
+      expect(registrationId).to.equal(config.invalidRegistrationIds[0]);
       done();
     });
 
     this.gcm.send({
-      registration_id: config.invalidRegistrationIds[0],
+      registrationId: config.invalidRegistrationIds[0],
       collapseKey: 'x',
       data: {
         'title': 'my tilte',
@@ -59,7 +59,7 @@ describe('Protocol gcm', function () {
     this.gcm.on('transmissionError', errorSpy);
 
     this.gcm.send({
-      registration_id: config.invalidRegistrationIds,
+      registrationId: config.invalidRegistrationIds,
       collapseKey: 'x',
       data: {
         'title': 'my tilte',
@@ -67,6 +67,6 @@ describe('Protocol gcm', function () {
       }
     });
   });
-  
+
 
 });
