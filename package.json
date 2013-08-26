@@ -1,13 +1,14 @@
 {
   "name": "push-notify",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Easily send notifications over multiple protocols.",
   "keywords": [
     "notification",
     "apns",
     "apn",
     "c2dm",
-    "mpns"
+    "mpns",
+    "gcm"
   ],
   "author": "Bergé Greg <berge.greg@gmail.com>",
   "licence": "MIT",
@@ -28,6 +29,7 @@
     "apn": "~1.3.4",
     "mpns": "~1.2.7",
     "c2dm": "~1.2.0",
+    "node-gcm": "~0.9.6",
     "q": "~0.9.4"
   },
   "devDependencies": {
