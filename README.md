@@ -134,7 +134,7 @@ You can easily broadcast a notification, each protocols accept a simple string o
 Each protocols trigger the same events: `transmitted` and `transmissionError`, sometimes other events are emmited, but these two are common to each protocols.
 
 * `transmitted` : Emmited when a notification is transmitted to the server.
-* `updated` : Emmited when a registrationId need to be updated.
+* `updated` : Emmited when a `registrationId` needs to be updated.
 * `transmissionError` : Emmited when a device id is incorrect.
 
 Each events has custom signature for each protocols :
