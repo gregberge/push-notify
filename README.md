@@ -8,157 +8,185 @@ Easily send notifications over several protocols.
 npm install push-notify
 ```
 
-## How to use
+## Usage
 
-### apn
+### Apple Push Notification (APN)
 
-```javascript
-var apn = new notify.apn.Sender({
-  key: 'my_key.pem',
-  cert: 'my_cert.pem'
+#### Example
+
+```js
+// Create a new APN sender.
+var apn = notify.apn({
+  key: 'myKey.pem',
+  cert: 'myCert.pem'
 });
 
+// Send a notification.
 apn.send({
-  token: 'my_device_token',
+  token: 'DEVICE_TOKEN',
   alert: 'Hello world!'
 });
 ```
 
-### gcm
+#### Notification
 
-```javascript
-var gcm = new notify.gcm.Sender({
-  key: 'insert Google Server API Key here',
+```
+  {string|string[]} token Device token
+  {number} expiry Timestamp for date expiration
+  {number} badge Badge count
+  {string} sound Sound
+  {string} alert Text alert
+  {object} payload Custom payload
+```
+
+### Google Cloud Messaging (GCM)
+
+#### Example
+
+```js
+// Create a new GCM sender.
+var gcm = require('push-notify').gcm({
+  key: 'GOOGLE_SERVER_API_KEY',
   retries: 1
 });
 
+// Send a notification.
 gcm.send({
-  registrationId: 'my_device_registration_id',
-  collapseKey: 'my_collapse_key',
+  registrationId: 'REGISTRATION_ID',
+  collapseKey: 'COLLAPSE_KEY',
   delayWhileIdle: true,
   timeToLive: 3,
   data: {
-      key1: 'message1',
-      key2: 'message2'
+    key1: 'message1',
+    key2: 'message2'
   }
 });
 ```
 
-### c2dm
+#### Notification
 
-```javascript
-var c2dm = new notify.c2dm.Sender({
-  user: 'my_user@gmail.com',
-  password: 'my_password',
+```
+  {string|string[]} registrationId Device registration id
+  {string} collapseKey Collapse key
+  {boolean} delayWhileIdle If included, indicates that the message should not be sent immediately if the device is idle. The server will wait for the device to become active, and then only the last message for each collapse_key value will be sent. Optional. The default value is false, and must be a JSON boolean.
+  {number} timeToLive How long (in seconds) the message should be kept on GCM 
+  {object} data Custom data
+```
+
+### Android Cloud to Device Messaging (C2DM)
+
+#### Example
+
+```js
+// Create a new C2DM sender.
+var c2dm = require('push-notify').c2dm({
+  user: 'user@gmail.com',
+  password: 'password',
   domain: 'com.myapp'
 });
 
+// Send notification.
 c2dm.send({
-  registration_id: 'my_device_registration_id',
-  collapse_key: 'my_collapse_key',
+  registration_id: 'REGISTRATION_ID',
+  collapse_key: 'COLLAPSE_KEY',
   'data.titre': 'Hello world!',
   'data.text': 'Is that true?'
-})
-
+});
 ```
 
-### mpns
+#### Notification
 
-```javascript
-var mpns = new notify.mpns.Sender();
+```
+  {string|string[]]} registration_id Device registration id
+  {string} collapse_key Collapse key
+  {string} data.* Custom data field
+```
 
+### Microsoft Push Notification Service (MPNS)
+
+#### Example
+
+```js
+// Create a new MPNS sender.
+var mpns = require('push-notify').mpns();
+
+// Send notification.
 mpns.send({
-  pushUri: 'my_device_push_uri',
+  pushUri: 'DEVICE_PUSH_URI',
   text1: 'Hello world!',
   text2: 'Is that true?'
 });
 ```
 
-## Data format
-
-### apn
+#### Notification
 
 ```
-{
-  token: 'xxx', // Device token
-  expiry: 1370612529, // Timestamp for date expiration
-  badge: 3, // Badge count
-  sound: 'ping.aiff', // Sound
-  alert: 'Hello world!', // Text alert
-  payload: {} // Custom payload
-}
+  {string|string[]} pushUri Device push uri
+  {string} text1 Text of the toast (bold)
+  {string} text2 Text of the toast (normal)
+  {string} param Optional uri parameters
 ```
 
-### gcm
+## Multi notification support
 
-```
-{
-  registrationId: 'xxx', // Device registration id
-  collapseKey: 'xxx', // Collapse key
-  delayWhileIdle: true, // If included, indicates that the message should not be sent immediately if the device is idle. The server will wait for the device to become active, and then only the last message for each collapse_key value will be sent. Optional. The default value is false, and must be a JSON boolean.
-  timeToLive: 3, // How long (in seconds) the message should be kept on GCM storage if the device is offline. Optional (default time-to-live is 4 weeks, and must be set as a JSON number).
-  data: {
-    key1: 'message1',
-    key2: 'message2'
-  }
-}
-```
-
-### c2dm
-
-```
-{
-  registration_id: 'xxx', // Device registration id
-  collapse_key: 'xxx', // Collapse key
-  'data.key1': 'value1' // Custom data fields
-}
-```
-
-### mpns
-
-```
-{
-  pushUri: 'xxx', // Device push uri
-  text1: 'xxx', // Text of the toast (bold)
-  text2: 'xxx', // Text of the toast (normal)
-  param: 'xxx' // Optional uri parameters
-}
-```
-
-## Broadcast notifications
-
-You can easily broadcast a notification, each protocols accept a simple string or an array of string in their own device id (`token`, `registrationId`, `pushUri`).
+You can send a notification to several devices, each identifier supports a simple string or an array of string.
 
 ## Events
 
-Each protocols trigger the same events: `transmitted` and `transmissionError`, sometimes other events are emmited, but these two are common to each protocols.
+### Common events
 
-* `transmitted` : Emmited when a notification is transmitted to the server.
-* `updated` : Emmited when a `registrationId` needs to be updated.
-* `transmissionError` : Emmited when a device id is incorrect.
+Push-notify provides an unified interface for events. There is three events that are common to all protocols: 
 
-Each events has custom signature for each protocols :
+#### transmitted
 
-### apn
+Emmited when a notification was correctly transmitted to the remote service.
 
-* `transmitted` : `function (notification, device) {}`
-* `transmissionError` : `function (errorCode, notification, device) {}`
+#### updated
 
-### gcm
+Emmited when an id has changed needs to be updated in your database.
 
-* `transmitted` : `function (result, registrationId) {}`
-* `updated` : `function (result, registrationId) {}`
-* `transmissionError` : `function (error, registrationId) {}`
+#### transmissionError
 
-### c2dm
+Emmited when an id is incorrect and must be removed from database.
 
-* `transmitted` : `function (messageId, payload) {}`
-* `transmissionError` : `function (error, payload) {}`
+#### error
 
-### mpns
+Called when an error occur during the sending. Notification must be sent again. 
 
-* `transmitted` : `function (result, pushUri) {}`
-* `transmissionError` : `function (error, pushUri) {}`
+### Examples
+
+#### APN
+
+```js
+apn.on('transmitted', function (notification, device) {});
+apn.on('transmissionError', function (errorCode, notification, device) {});
+apn.on('error', function (err) {});
+```
+
+#### GCM
+
+```js
+gcm.on('transmitted', function (result, registrationId) {});
+gcm.on('updated', function (result, registrationId) {});
+gcm.on('transmissionError', function (error, registrationId) {});
+gcm.on('error', function (err) {});
+```
+
+#### C2DM
+
+```js
+c2dm.on('transmitted', function (messageId, payload) {});
+c2dm.on('transmissionError', function (error, payload) {});
+c2dm.on('error', function (err) {});
+```
+
+#### MPNS
+
+```js
+mpns.on('transmitted', function (result, pushUri) {});
+mpns.on('transmissionError', function (error, pushUri) {});
+mpns.on('error', function (err) {});
+```
 
 ## Modules
 
