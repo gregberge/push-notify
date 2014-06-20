@@ -1,1 +1,5 @@
-module.exports = require("./lib/notify");
+/**
+ * Expose module.
+ */
+
+module.exports = require('./lib/notify');

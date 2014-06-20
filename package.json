@@ -4,12 +4,16 @@
   "description": "Easily send notifications over multiple protocols.",
   "keywords": [
     "notification",
+    "push",
     "apns",
     "apn",
     "c2dm",
     "mpns",
     "gcm"
   ],
+  "scripts": {
+    "test": "mocha --recursive test/unit"
+  },
   "author": "Bergé Greg <berge.greg@gmail.com>",
   "licence": "MIT",
   "main": "index.js",
@@ -25,17 +29,19 @@
     "node": ">=0.6.5"
   },
   "dependencies": {
-    "lodash": "~1.2.1",
-    "apn": "~1.3.4",
-    "mpns": "~1.2.7",
-    "c2dm": "~1.2.0",
-    "node-gcm": "~0.9.6",
-    "q": "~0.9.4"
+    "apn": "^1.5.2",
+    "bluebird": "^2.1.3",
+    "c2dm": "^1.2.1",
+    "lodash": "^2.4.1",
+    "mpns": "^2.1.0",
+    "node-gcm": "^0.9.11",
+    "pipe-event": "^0.1.0",
+    "q": "^1.0.1"
   },
   "devDependencies": {
-    "sinon-chai": "~2.4.0",
-    "chai": "~1.6.0",
-    "sinon": "~1.7.2",
-    "mocha": "~1.10.0"
+    "chai": "^1.9.1",
+    "mocha": "^1.20.1",
+    "sinon": "^1.10.2",
+    "sinon-chai": "^2.5.0"
   }
 }

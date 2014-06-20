@@ -32,11 +32,35 @@ apn.send({
 
 ```
   {string|string[]} token Device token
-  {number} expiry Timestamp for date expiration
-  {number} badge Badge count
-  {string} sound Sound
-  {string} alert Text alert
-  {object} payload Custom payload
+  ...
+```
+
+Additional fields can be found in [node-apn documentation](https://github.com/argon/node-apn/blob/master/doc/apn.markdown#class-apnnotification).
+
+#### Events
+
+##### transmitted
+
+Emmited when a notification was correctly transmitted to Apple servers. You can find more details in [node-apn documentation](https://github.com/argon/node-apn/blob/master/doc/apn.markdown#event-transmitted).
+
+```js
+apn.on('transmitted', function (notification, device) {});
+```
+
+#### transmissionError
+
+Emmited when a error occurs during notfication transmission. You can find more details in [node-apn documentation](https://github.com/argon/node-apn/blob/master/doc/apn.markdown#event-transmissionerror).
+
+```js
+apn.on('transmissionError', function (errorCode, notification, device) {});
+```
+
+#### error
+
+Called when an error occurs during the connection to Apple servers. You can find more details in [node-apn documentation](https://github.com/argon/node-apn/blob/master/doc/apn.markdown#event-error).
+
+```js
+apn.on('error', function (error) {});
 ```
 
 ### Google Cloud Messaging (GCM)
@@ -73,6 +97,32 @@ gcm.send({
   {object} data Custom data
 ```
 
+#### Events
+
+#### transmitted
+
+Emmited when a notification was correctly transmitted to Google servers.
+
+```js
+gcm.on('transmitted', function (result, message, registrationId) {});
+```
+
+#### transmissionError
+
+Emmited when a error occurs during the transmission of the message.
+
+```js
+gcm.on('transmissionError', function (error, message, registrationId) {});
+```
+
+#### updated
+
+Emmited when a registration id must be updated in the database.
+
+```js
+gcm.on('updated', function (result, registrationId) {});
+```
+
 ### Android Cloud to Device Messaging (C2DM)
 
 #### Example
@@ -102,6 +152,32 @@ c2dm.send({
   {string} data.* Custom data field
 ```
 
+#### Events
+
+##### transmitted
+
+Emmited when a notification was correctly transmitted to Google servers.
+
+```js
+c2dm.on('transmitted', function (messageId, payload, registrationId) {});
+```
+
+#### transmissionError
+
+Emmited when a error occurs during notfication transmission.
+
+```js
+c2dm.on('transmissionError', function (error, payload, registrationId) {});
+```
+
+#### error
+
+Called when an error occurs during the login.
+
+```js
+c2dm.on('error', function (error) {});
+```
+
 ### Microsoft Push Notification Service (MPNS)
 
 #### Example
@@ -127,68 +203,25 @@ mpns.send({
   {string} param Optional uri parameters
 ```
 
-## Multi notification support
-
-You can send a notification to several devices, each identifier supports a simple string or an array of string.
-
-## Events
-
-### Common events
-
-Push-notify provides an unified interface for events. There is three events that are common to all protocols: 
+#### Events
 
 #### transmitted
 
-Emmited when a notification was correctly transmitted to the remote service.
+Emmited when a notification was correctly transmitted to Microsoft servers.
 
-#### updated
-
-Emmited when an id has changed needs to be updated in your database.
+```js
+mpns.on('transmitted', function (result, payload, pushUri) {});
+```
 
 #### transmissionError
 
-Emmited when an id is incorrect and must be removed from database.
-
-#### error
-
-Called when an error occur during the sending. Notification must be sent again. 
-
-### Examples
-
-#### APN
+Emmited when a error occurs during the transmission of the message.
 
 ```js
-apn.on('transmitted', function (notification, device) {});
-apn.on('transmissionError', function (errorCode, notification, device) {});
-apn.on('error', function (err) {});
+mpns.on('transmissionError', function (error, payload, pushUri) {});
 ```
 
-#### GCM
-
-```js
-gcm.on('transmitted', function (result, registrationId) {});
-gcm.on('updated', function (result, registrationId) {});
-gcm.on('transmissionError', function (error, registrationId) {});
-gcm.on('error', function (err) {});
-```
-
-#### C2DM
-
-```js
-c2dm.on('transmitted', function (messageId, payload) {});
-c2dm.on('transmissionError', function (error, payload) {});
-c2dm.on('error', function (err) {});
-```
-
-#### MPNS
-
-```js
-mpns.on('transmitted', function (result, pushUri) {});
-mpns.on('transmissionError', function (error, pushUri) {});
-mpns.on('error', function (err) {});
-```
-
-## Modules
+## Used modules
 
 * apn: [node-apn](https://github.com/argon/node-apn)
 * gcm: [node-gcm](https://github.com/ToothlessGear/node-gcm)
