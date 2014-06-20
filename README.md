@@ -40,6 +40,16 @@ apn.send({
 
 Additional fields can be found in [node-apn documentation](https://github.com/argon/node-apn/blob/master/doc/apn.markdown#class-apnnotification).
 
+#### Closing connection
+
+APN use a socket and keep it connected, so if we want to gracefully stop a process, you will need to close this connection. A close method is avalaible on the APN sender.
+
+```js
+apn.close(function () {
+  // the connection is closed
+});
+```
+
 #### Events
 
 ##### transmitted

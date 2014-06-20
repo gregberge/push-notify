@@ -6,7 +6,7 @@ var apn = require('apn');
 var notify = require('../../../');
 
 describe('APN', function () {
-  var pushNotificationFn;
+  var pushNotificationFn, apnSender;
 
   beforeEach(function () {
     pushNotificationFn = sinon.spy(function (notification) {
@@ -32,6 +32,8 @@ describe('APN', function () {
     util.inherits(Connection, EventEmitter);
 
     sinon.stub(apn, 'Connection', Connection);
+
+    apnSender = notify.apn({foo: 'bar'});
   });
 
   afterEach(function () {
@@ -39,12 +41,6 @@ describe('APN', function () {
   });
 
   describe('#send', function () {
-    var apnSender;
-
-    beforeEach(function () {
-      apnSender = notify.apn({foo: 'bar'});
-    });
-
     it('should create notification and send it', function () {
       apnSender.send({
         token: 'myToken',
@@ -124,6 +120,54 @@ describe('APN', function () {
       expect(transmissionErrorSpy).to.not.be.called;
       expect(transmittedSpy).to.be.called;
       expect(errorSpy).to.not.be.called;
+    });
+  });
+
+  describe('#close', function () {
+    describe('without active connection', function () {
+      it('should do nothing if there is no connection', function () {
+        apnSender.close();
+      });
+
+      it('should accept a callback', function (done) {
+        apnSender.close(done);
+      });
+    });
+
+    describe('with an active connection', function () {
+      var clock;
+
+      beforeEach(function () {
+        clock = sinon.useFakeTimers(0, 'setTimeout');
+        apnSender.connection = {
+          shutdown: sinon.spy()
+        };
+      });
+
+      afterEach(function () {
+        clock.restore();
+      });
+
+      it('should work without callback', function () {
+        apnSender.close();
+        expect(apnSender.connection.shutdown).to.be.called;
+      });
+
+      it('should wait 2600ms if there is a callback', function () {
+        var spy = sinon.spy();
+        apnSender.close(spy);
+
+        expect(spy).to.not.be.called;
+
+        clock.tick(1000);
+        expect(spy).to.not.be.called;
+
+        clock.tick(1000);
+        expect(spy).to.not.be.called;
+
+        clock.tick(1000);
+        expect(spy).to.be.called;
+      });
     });
   });
 });
