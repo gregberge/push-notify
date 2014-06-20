@@ -50,7 +50,7 @@ Emmited when a notification was correctly transmitted to Apple servers. You can 
 apn.on('transmitted', function (notification, device) {});
 ```
 
-#### transmissionError
+##### transmissionError
 
 Emmited when a error occurs during notfication transmission. You can find more details in [node-apn documentation](https://github.com/argon/node-apn/blob/master/doc/apn.markdown#event-transmissionerror).
 
@@ -58,7 +58,7 @@ Emmited when a error occurs during notfication transmission. You can find more d
 apn.on('transmissionError', function (errorCode, notification, device) {});
 ```
 
-#### error
+##### error
 
 Called when an error occurs during the connection to Apple servers. You can find more details in [node-apn documentation](https://github.com/argon/node-apn/blob/master/doc/apn.markdown#event-error).
 
@@ -102,7 +102,7 @@ gcm.send({
 
 #### Events
 
-#### transmitted
+##### transmitted
 
 Emmited when a notification was correctly transmitted to Google servers.
 
@@ -110,7 +110,7 @@ Emmited when a notification was correctly transmitted to Google servers.
 gcm.on('transmitted', function (result, message, registrationId) {});
 ```
 
-#### transmissionError
+##### transmissionError
 
 Emmited when a error occurs during the transmission of the message.
 
@@ -118,7 +118,7 @@ Emmited when a error occurs during the transmission of the message.
 gcm.on('transmissionError', function (error, message, registrationId) {});
 ```
 
-#### updated
+##### updated
 
 Emmited when a registration id must be updated in the database.
 
@@ -165,7 +165,7 @@ Emmited when a notification was correctly transmitted to Google servers.
 c2dm.on('transmitted', function (messageId, payload, registrationId) {});
 ```
 
-#### transmissionError
+##### transmissionError
 
 Emmited when a error occurs during notfication transmission.
 
@@ -173,7 +173,7 @@ Emmited when a error occurs during notfication transmission.
 c2dm.on('transmissionError', function (error, payload, registrationId) {});
 ```
 
-#### error
+##### error
 
 Called when an error occurs during the login.
 
@@ -208,7 +208,7 @@ mpns.send({
 
 #### Events
 
-#### transmitted
+##### transmitted
 
 Emmited when a notification was correctly transmitted to Microsoft servers.
 
@@ -216,7 +216,7 @@ Emmited when a notification was correctly transmitted to Microsoft servers.
 mpns.on('transmitted', function (result, payload, pushUri) {});
 ```
 
-#### transmissionError
+##### transmissionError
 
 Emmited when a error occurs during the transmission of the message.
 
