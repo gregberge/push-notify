@@ -83,7 +83,7 @@ apn.on('error', function (error) {});
 ```js
 // Create a new GCM sender.
 var gcm = require('push-notify').gcm({
-  key: 'GOOGLE_SERVER_API_KEY',
+  apiKey: 'GOOGLE_SERVER_API_KEY',
   retries: 1
 });
 
