@@ -65,7 +65,7 @@ describe('WNS', function () {
 
     it('should forward "transmissionError" event correctly', function () {
 
-      sendStub.callsArgWith(4, new Error('send error'));
+      sendStub.callsArgWith(4, 'error');
       var transmissionErrorSpy = sinon.spy();
       var transmittedSpy = sinon.spy();
       var errorSpy = sinon.spy();
@@ -79,7 +79,7 @@ describe('WNS', function () {
         type: 'badge'
       });
 
-      expect(transmissionErrorSpy).to.be.called;
+      expect(transmissionErrorSpy).to.have.been.calledWith('error', 'URI');
       expect(transmittedSpy).to.not.be.called;
       expect(errorSpy).to.not.be.called;
     });
@@ -101,7 +101,7 @@ describe('WNS', function () {
       });
 
       expect(transmissionErrorSpy).to.not.be.called;
-      expect(transmittedSpy).to.be.called;
+      expect(transmittedSpy).to.have.been.calledWith('success', 'URI');
       expect(errorSpy).to.not.be.called;
     });
   });
