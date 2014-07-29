@@ -204,7 +204,7 @@ var wns = require('push-notify').wns({
 
 // Send notification.
 wns.send({
-  channelURL: 'URL to your application notification channel',
+  channelURI: 'URI to your application notification channel',
   payload: 'XML containing the notification data',
   type: 'notification type'
 });
