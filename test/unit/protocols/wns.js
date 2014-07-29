@@ -86,7 +86,7 @@ describe('WNS', function () {
 
     it('should forward "transmitted" event correctly', function () {
 
-      sendStub.callsArgWith(4, 'success');
+      sendStub.callsArgWith(4, null, 'success');
       var transmissionErrorSpy = sinon.spy();
       var transmittedSpy = sinon.spy();
       var errorSpy = sinon.spy();
