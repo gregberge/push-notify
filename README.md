@@ -191,6 +191,51 @@ Called when an error occurs during the login.
 c2dm.on('error', function (error) {});
 ```
 
+### Windows Push Notification Service (WNS)
+
+#### Example
+
+```js
+// Create a new WNS sender.
+var wns = require('push-notify').wns({
+  client_id: 'your Package Security Identifier',
+  client_secret: 'your Client secret'
+});
+
+// Send notification.
+wns.send({
+  channelURL: 'URL to your application notification channel',
+  payload: 'XML containing the notification data',
+  type: 'notification type'
+});
+```
+
+#### Notification
+
+```
+  {string} channelURI URI for the device to send the notification to
+  {string} payload the XML string containing the notif data
+  {string} type notif type. One of: toast, badge, tile, raw
+```
+
+#### Events
+
+##### transmitted
+
+Emmited when a notification was correctly transmitted to Microsoft servers.
+
+```js
+wns.on('transmitted', function (result) {});
+```
+
+##### transmissionError
+
+Emmited when a error occurs during the transmission of the message.
+
+```js
+wns.on('transmissionError', function (error) {});
+```
+
 ### Microsoft Push Notification Service (MPNS)
 
 #### Example
@@ -240,6 +285,7 @@ mpns.on('transmissionError', function (error, payload, pushUri) {});
 * gcm: [node-gcm](https://github.com/ToothlessGear/node-gcm)
 * c2dm: [node-c2dm](https://github.com/SpeCT/node-c2dm)
 * mpns: [node-mpns](https://github.com/jeffwilcox/mpns)
+* wns: [wns](https://github.com/tjanczuk/wns)
 
 ## License
 
