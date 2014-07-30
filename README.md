@@ -216,6 +216,7 @@ wns.send({
   {string} channelURI URI for the device to send the notification to
   {string} payload the XML string containing the notif data
   {string} type notif type. One of: toast, badge, tile, raw
+  {object} options an optional options object passed to wns lib (see wns lib)
 ```
 
 #### Events
