@@ -35,6 +35,28 @@ describe('WNS', function () {
       });
     });
 
+    it('should create a notification with options and send it', function () {
+      wnsSender.send({
+        channelURI: 'URI',
+        payload: 'XML',
+        type: 'raw',
+        options: {
+          headers: {
+            'Content-Type': 'application/octet-stream'
+          }
+        }
+      });
+
+      expect(wns.send).to.be.calledWith('URI', 'XML', 'wns/raw', {
+        client_id: 'foo',
+        client_secret: 'bar',
+        headers: {
+          'Content-Type': 'application/octet-stream'
+        }
+      });
+
+    });
+
     it('should emit an error for each missing required property', function () {
       var sender = notify.wns({
       });
