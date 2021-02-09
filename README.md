@@ -8,7 +8,7 @@ Easily send notifications over several protocols.
 ## Install
 
 ```
-npm install push-notify
+npm install push-notify-patched
 ```
 
 ## Usage
